@@ -250,11 +250,18 @@ void main_loop(char *fileName)
             //TODO#4: create job, busy wait
             for (int i = 0; i < number_of_processes; i++)
             {
-                int alive = waitpid(children_processes[i], NULL, WNOHANG);
+                int status;
+                int alive = waitpid(children_processes[i], &status, WNOHANG);
                 printf("process %i is alive %i\n", i, alive);
                 printf("waiting for process %i to complete %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration);
                 printf("process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status);
                 printf("waiting for process %i to change task status to %i\n", i, 0);
+
+                if (WIFEXITED(status))
+                {
+                    int es = WEXITSTATUS(status);
+                    printf("exit status was %i\n", es);
+                }
 
                 // while (shmPTR_jobs_buffer[i].task_status != 0)
                 // {
@@ -305,7 +312,9 @@ void main_loop(char *fileName)
         //      e. The outermost while loop will keep doing this until there's no more content in the input file.
     }
     fclose(opened_file);
-
+    
+    sleep(3);
+    
     printf("Main process is going to send termination signals\n");
 
     // TODO#4: Design a way to send termination jobs to ALL worker that are currently alive
