@@ -16,9 +16,9 @@ void task(long duration)
     // wait, decrease to 0
     // execute code
     // then post, increase to 1
-    printf("CHILD: wait semaphore\n");
+    // printf("CHILD: wait semaphore\n"); // debug
     sem_wait(sem_global_data);
-    printf("CHILD: got semaphore\n");
+    // printf("CHILD: got semaphore\n"); // debug
 
     ShmPTR_global_data->sum_work += duration;
     ShmPTR_global_data->total_tasks++;
@@ -36,7 +36,7 @@ void task(long duration)
     }
 
     sem_post(sem_global_data);
-    printf("CHILD: returned semaphore\n");
+    // printf("CHILD: returned semaphore\n"); // debug
 }
 
 /**
@@ -50,50 +50,50 @@ void job_dispatch(int i)
     while (true)
     {
         //          b. Use semaphore so that you don't busy wait
-        printf("CHILD: process %i wait semaphore in dispatch\n", i);
+        // printf("CHILD: process %i wait semaphore in dispatch\n", i); // debug
         sem_wait(sem_jobs_buffer[i]);
-        printf("CHILD: process %i got semaphore in dispatch\n", i);
+        // printf("CHILD: process %i got semaphore in dispatch\n", i); // debug
         //          c. If there's new job, execute the job accordingly: either by calling task(), usleep, exit(3) or kill(getpid(), SIGKILL)
         if (shmPTR_jobs_buffer[i].task_status != -1)
         {
-            printf("CHILD: worker %i about to execute %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration);
+            // printf("CHILD: worker %i about to execute %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration); // debug
             // debug
             switch (shmPTR_jobs_buffer[i].task_type)
             {
             case 't':
-                printf("CHILD: t\n");
+                // printf("CHILD: t\n"); // debug
                 task(shmPTR_jobs_buffer[i].task_duration);
                 shmPTR_jobs_buffer[i].task_status = 0;
-                printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type);
+                // printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type); // debug
                 break;
             case 'w':
-                printf("CHILD: w\n");
+                // printf("CHILD: w\n"); // debug
                 usleep(shmPTR_jobs_buffer[i].task_duration * TIME_MULTIPLIER);
                 shmPTR_jobs_buffer[i].task_status = 0;
-                printf("CHILD: process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status);
-                printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type);
+                // printf("CHILD: process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status); // debug
+                // printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type); // debug
                 break;
             case 'z':
-                printf("CHILD: z\n");
+                // printf("CHILD: z\n"); // debug
                 exit(3);
                 shmPTR_jobs_buffer[i].task_status = 0;
-                printf("CHILD: process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status);
-                printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type);
+                // printf("CHILD: process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status); // debug
+                // printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type); // debug
                 break;
             case 'i':
-                printf("CHILD: i\n");
+                // printf("CHILD: i\n"); // debug
                 shmPTR_jobs_buffer[i].task_status = 0;
-                printf("CHILD: about to kill id %i\n", getpid());
-                printf("CHILD: process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status);
+                // printf("CHILD: about to kill id %i\n", getpid()); // debug
+                // printf("CHILD: process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status); // debug
                 kill(getpid(), SIGKILL);
-                printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type);
+                // printf("CHILD: worker %i completed %c\n", i, shmPTR_jobs_buffer[i].task_type); // debug
                 break;
             }
-            printf("CHILD: finish switch case\n");
+            // printf("CHILD: finish switch case\n"); // debug
         }
     }
 
-    // printf("Hello from child %d with pid %d and parent id %d\n", i, getpid(), getppid());
+    // printf("Hello from child %d with pid %d and parent id %d\n", i, getpid(), getppid()); // debug
     // exit(0);
 }
 
@@ -116,14 +116,14 @@ void setup()
     ShmID_global_data = shmget(IPC_PRIVATE, sizeof(global_data), IPC_CREAT | 0666);
     if (ShmID_global_data == -1)
     {
-        printf("%i\n", ShmID_global_data); // debug
-        printf("Global data shared memory creation failed\n");
+        // printf("%i\n", ShmID_global_data); // debug // debug
+        // printf("Global data shared memory creation failed\n"); // debug
         exit(EXIT_FAILURE);
     }
     ShmPTR_global_data = (global_data *)shmat(ShmID_global_data, NULL, 0);
     if ((int)ShmPTR_global_data == -1)
     {
-        printf("Attachment of global data shared memory failed \n");
+        // printf("Attachment of global data shared memory failed \n"); // debug
         exit(EXIT_FAILURE);
     }
 
@@ -155,13 +155,13 @@ void setup()
     ShmID_jobs = shmget(IPC_PRIVATE, sizeof(job) * number_of_processes, IPC_CREAT | 0666);
     if (ShmID_jobs == -1)
     {
-        printf("Global data shared memory creation failed\n");
+        // printf("Global data shared memory creation failed\n"); // debug
         exit(EXIT_FAILURE);
     }
     shmPTR_jobs_buffer = (job *)shmat(ShmID_jobs, NULL, 0);
     if ((int)shmPTR_jobs_buffer == -1)
     {
-        printf("Attachment of global data shared memory failed \n");
+        // printf("Attachment of global data shared memory failed \n"); // debug
         exit(EXIT_FAILURE);
     }
 
@@ -252,24 +252,24 @@ void main_loop(char *fileName)
             {
                 int status;
                 int alive = waitpid(children_processes[i], &status, WNOHANG);
-                printf("process %i is alive %i\n", i, alive);
-                printf("waiting for process %i to complete %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration);
-                printf("process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status);
-                printf("waiting for process %i to change task status to %i\n", i, 0);
+                // printf("process %i is alive %i\n", i, alive); // debug
+                // printf("waiting for process %i to complete %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration); // debug
+                // printf("process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status); // debug
+                // printf("waiting for process %i to change task status to %i\n", i, 0); // debug
 
                 if (WIFEXITED(status))
                 {
                     int es = WEXITSTATUS(status);
-                    printf("exit status was %i\n", es);
+                    // printf("exit status was %i\n", es); // debug
                 }
 
                 // while (shmPTR_jobs_buffer[i].task_status != 0)
                 // {
                 //     alive = waitpid(children_processes[i], NULL, WNOHANG);
-                //     printf("process %i is alive %i\n", i, alive);
-                //     // printf("waiting for process %i to change task status to %i\n", i, 0);
+                // printf("process %i is alive %i\n", i, alive); // debug
+                // printf("waiting for process %i to change task status to %i\n", i, 0); // debug
                 // };
-                printf("process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status);
+                // printf("process %i's task status is %i\n", i, shmPTR_jobs_buffer[i].task_status); // debug
                 //      a. Busy wait and examine each shmPTR_jobs_buffer[i] for jobs that are done by checking that shmPTR_jobs_buffer[i].task_status == 0. You also need to ensure that the process i IS alive using waitpid(children_processes[i], NULL, WNOHANG). This WNOHANG option will not cause main process to block when the child is still alive. waitpid will return 0 if the child is still alive.
                 //      b. If both conditions in (a) is satisfied update the contents of shmPTR_jobs_buffer[i], and increase the semaphore using sem_post(sem_jobs_buffer[i])
                 if (shmPTR_jobs_buffer[i].task_status == 0 && alive == 0)
@@ -279,7 +279,7 @@ void main_loop(char *fileName)
                     shmPTR_jobs_buffer[i].task_status = 1;
                     task_assigned = true;
                     sem_post(sem_jobs_buffer[i]);
-                    printf("process %i receive new job %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration);
+                    // printf("process %i receive new job %c%i\n", i, shmPTR_jobs_buffer[i].task_type, shmPTR_jobs_buffer[i].task_duration); // debug
                     //      c. Break of busy wait loop, advance to the next task on file
                     break;
                 }
@@ -287,7 +287,7 @@ void main_loop(char *fileName)
                 // else if (shmPTR_jobs_buffer[i].task_status == 0 && alive != 0)
                 else if (alive != 0)
                 {
-                    printf("process %i is dead\n", i);
+                    // printf("process %i is dead\n", i); // debug
                     pid_t pid = fork();
                     if (pid < 0)
                     {
@@ -297,7 +297,7 @@ void main_loop(char *fileName)
                     else if (pid == 0)
                     {
                         //          c. For child process, invoke the method job_dispatch(i)
-                        printf("spawn new child\n");
+                        // printf("spawn new child\n"); // debug
                         job_dispatch(i);
                     }
                     else
@@ -312,10 +312,10 @@ void main_loop(char *fileName)
         //      e. The outermost while loop will keep doing this until there's no more content in the input file.
     }
     fclose(opened_file);
-    
+
     sleep(3);
-    
-    printf("Main process is going to send termination signals\n");
+
+    // printf("Main process is going to send termination signals\n"); // debug
 
     // TODO#4: Design a way to send termination jobs to ALL worker that are currently alive
     for (int i = 0; i < number_of_processes; i++)
@@ -327,7 +327,7 @@ void main_loop(char *fileName)
             shmPTR_jobs_buffer[i].task_duration = 1;
             shmPTR_jobs_buffer[i].task_status = 1;
             sem_post(sem_jobs_buffer[i]);
-            printf("send z to %i\n", i); // debug
+            // printf("send z to %i\n", i); // debug // debug
         }
     }
 
@@ -338,7 +338,7 @@ void main_loop(char *fileName)
     {
         process_waited_final++;
     }
-    printf("process_waited_final is %i\n", process_waited_final);
+    // printf("process_waited_final is %i\n", process_waited_final); // debug
 
     // debug
     // wait for all N children processes
@@ -346,10 +346,10 @@ void main_loop(char *fileName)
     for (int i = 0; i < number_of_processes; i++)
     {
         waitpid_result = waitpid(children_processes[i], NULL, 0); // returns when child exits normally
-        printf("waitpid_result is %i\n", waitpid_result);
+        // printf("waitpid_result is %i\n", waitpid_result); // debug
         if (waitpid_result != -1)
         {
-            printf("Child %d with pid %d has exited successfully\n", i, waitpid_result);
+            // printf("Child %d with pid %d has exited successfully\n", i, waitpid_result); // debug
         }
     }
 
@@ -392,7 +392,7 @@ void cleanup()
 int main(int argc, char *argv[])
 {
 
-    printf("Lab 1 Starts...\n");
+    // printf("Lab 1 Starts...\n"); // debug
 
     struct timeval start, end;
     long secs_used, micros_used;
@@ -427,7 +427,7 @@ int main(int argc, char *argv[])
     // debug
     for (int i = 0; i < number_of_processes; i++)
     {
-        printf("Child process %d created with pid: %d \n", i, children_processes[i]);
+        // printf("Child process %d created with pid: %d \n", i, children_processes[i]); // debug
         // wait(NULL);
     }
 
