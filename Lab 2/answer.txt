@@ -1,0 +1,34 @@
+Customer 0 requesting
+
+Customer 1 requesting
+
+Customer 2 requesting
+
+Customer 3 requesting
+
+Customer 4 requesting
+
+Customer 1 requesting
+
+
+Current state:
+Available:
+
+Maximum:
+
+Allocation:
+
+Need:
+
+Customer 0 requesting
+
+
+Current state:
+Available:
+
+Maximum:
+
+Allocation:
+
+Need:
+
