@@ -191,8 +191,60 @@ int checkSafe(int customerIndex, int *request)
 		}
 	}
 
-	// TODO: check if the new state is safe
+	// initialise finish to false
+	int *finish = mallocIntVector(numberOfCustomers);
+	for (int i = 0; i < numberOfCustomers; i++)
+	{
+		finish[i] = 0;
+	}
 
+	// initialise work
+	for (int j = 0; j < numberOfResources; j++)
+	{
+		work[j] = available[j] - request[j];
+	}
+
+	// TODO: check if the new state is safe
+	int possible = 1;
+	while (possible)
+	{
+		possible = 0;
+		for (int i = 0; i < numberOfCustomers; i++)
+		{
+			int count_resources_satisfied = 0;
+			if (finish[i] == 0)
+			{
+				for (int j = 0; j < numberOfResources; j++)
+				{
+					if (tempNeed[i][j] <= work[j])
+					{
+						count_resources_satisfied++;
+					}
+					if (count_resources_satisfied == numberOfResources)
+					{
+						possible = 1;
+						// update work
+						for (int j = 0; j < numberOfResources; j++)
+						{
+							work[j] = work[j] + tempAllocation[i][j];
+							finish[i] = 1;
+						}
+					}
+				}
+				count_resources_satisfied = 0;
+			}
+		}
+	}
+	for (int i = 0; i < numberOfCustomers; i++)
+	{
+		if (finish[i] == 0)
+		{
+			// printf("allocation rejected\n");
+			return 0;
+		}
+	}
+
+	// printf("allocation granted\n");
 	return 1;
 }
 
@@ -225,6 +277,10 @@ int requestResources(int customerIndex, int *request)
 	}
 
 	// TODO: judge if the new state is safe if grants this request (for question 2)
+	if (checkSafe(customerIndex, request) != 1)
+	{
+		return 0;
+	}
 
 	// TODO: request is granted, update state
 	for (int j = 0; j < numberOfResources; j++)
