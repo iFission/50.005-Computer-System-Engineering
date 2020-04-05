@@ -31,7 +31,7 @@ rootprogram_nosuid: rootprog.c
 # Set logaccess to be executable only by ROOT
 setup: 
 	chmod 744 ../Root/logaccess 
-	chmod u+s ../Root/rootprog 
+	# chmod u+s ../Root/rootprog 
 	chmod u+s ../Root/rootdo
 	echo THIS IS ROOT FILE > ../Root/rootfile.txt
 	echo THIS IS ROOT FILE > ../Root/rootlogfile.txt
@@ -49,4 +49,3 @@ clean:
 	$(REMOVE) ../Root/rootfile.txt
 	$(REMOVE) ../Root/rootlogfile.txt
 	rm -rf ../Root/
-
