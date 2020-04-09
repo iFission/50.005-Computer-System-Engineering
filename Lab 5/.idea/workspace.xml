@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3efa3d3b-a50d-4d47-96d5-c33f190d7c9a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/desStartingCode.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1a7CvTwYSOBPZGnjvagssyquQ12" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3efa3d3b-a50d-4d47-96d5-c33f190d7c9a" name="Default Changelist" comment="" />
+      <created>1586077476343</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586077476343</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="23" width="960" height="539" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586077580335">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="0" y="23" width="960" height="539" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.-1057.1920.1057/0.23.1920.1057@0.23.1920.1057" timestamp="1586077580335" />
+    <state x="0" y="23" width="480" height="529" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1586077577000">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="0" y="23" width="480" height="529" key="#com.intellij.ide.util.TreeClassChooserDialog/0.-1057.1920.1057/0.23.1920.1057@0.23.1920.1057" timestamp="1586077577000" />
+    <state x="0" y="23" width="960" height="529" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1586077504196">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="0" y="23" width="960" height="529" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.-1057.1920.1057/0.23.1920.1057@0.23.1920.1057" timestamp="1586077504196" />
+    <state x="0" y="23" width="960" height="529" key="new project wizard" timestamp="1586077614829">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="0" y="23" width="960" height="529" key="new project wizard/0.-1057.1920.1057/0.23.1920.1057@0.23.1920.1057" timestamp="1586077614829" />
+  </component>
+</project>

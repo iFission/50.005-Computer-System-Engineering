@@ -1,0 +1,53 @@
+part 1
+
+q1
+yes
+
+q2
+warning message Implicit call to 'toString()' on array 'encryptedBytesArray'
+not printable: byte array, not in hex
+
+q3
+yes, it is a string
+rYo0RaRgFdNpxWXIFPQAktZ2YJk5zICfkLG5mAYBnpP5F8kyzt3RJWElU8xSUAvIbusrNzVMVd5ojEP8g+LfvVcQvb8l4lwy+6aVOsORe5zPav0louq66OH75ZRjwRZE8X2rSSmYqcwbFCw01qG+k2RA0E6RLCvP8C9/0TFxZ4qzbhiSRGjEFwgkG68e+BeW3K3Sf3vpzZpP6j+MU0Q8sPPU0yLMpZZu3DqUxOzeWpqktkWTKapcppZdwXi2i2hI8wK47X/lMgFArGS8i16HY49LgaYLGkI3Cppch0F+Durvg9/keb+d4CCUsFG21lbupjZzFxRv4orvJUvSaG+hP+nhp9wUaxbvm0JWXpkK2Vpj3/oNKReOOXaehb3SVwzAjGsIpkq9ZZYUfSC4kU22ni+c5cGjgRDEdBaD/HCRvl005Aqof0+i8InWy6N+cjguGE/F2gW+8h9vdX48zrjZyPqUiHVHbwsbbWoC4xdDx0Uz27FtmrgeZRa/ncul0xYOrS2WSc2fTyyxIUWHHxyIzEaIMoI+utzHTUl3nwbfY54OuXZTrGOvX1A/Xw4M7Ing3cFYUfmkq3SN3jyUzk3uYZME7CmPrwbp2a6q6rdNpJsEz5/7N3H2DLyS/VPZ+T4i4pTn/gKZhgaTU9lZfWvd+qfqvusXcEaTnU5kp4EsFU+T5QCkUXQSAGiiFIpzwb0jq7jtP4V7aaHT8J9wTkROWysCZiGs99aM1t6GgUK2heVjVOYBm4O18yadpHn/khDjUONHim/AJnLDEPdZWDelrkcG3Xtl6wln64qxl56zWSMYgaeYFQp4YTtRih4qdgYDgs5Lvo6nf9jr/TW2wi5+JOzppvBuG60KOMJ1l+tKxNt0p6ssPs6FPp4yPIX0lFIC9Wx39PRmnrrCzklP0zxf6egOjGEWm+Jzdj2GvTxOkCuuVLBmMUrZtD/PG845sCDNzcT8PA/SLuSLK9JAY+FycYUKucUJ1ilFsdt4yAiBu6n+FTJsMdiWGUYsBCJcswtyubljK9sMV8qb3XQM7SwWSRJ2qoZknaCiTZQZs3ua6OuuHBdsp0H7X6MSt9zgGV2FymDdZI3kV3mrs4c74zXJYmd8HlP6TTZ/4ZxOtjWw+fWLmCvKn1yZWozv2zwv+T+cgdf7WQMms/aYd4j/yYLcOr1OB3+uK951LZZrdfCXjzBbNqyqSdTzBXq0M2j6+FVnVkrYbnLOoKLnp5va/zrTuVAj6xwrFCurzA1c78fvX1+KgaJGi0JyHsKEgIR8tYMi8c+sUxvQDV6Rm+NPFla/is9P4S/DnzbNDTUJuOyEcYspv/j4k7tZ/d1Zard0q3a/fTfhAdQNzFx91naom+vZ1rj5KrD8uKMIf1uSnwEYnRlkHDwbFcT4BEnmw4WWLuwpyinKWd2dyHBW3NJLVLUMROhmqPX5UOqXFwLrxuerTOcNorZCRtKxgIrB5ueVmy3D9DALLwfi0vzGg5wsRVhf/JP3n/yGBqmTxTZQU2iGrVR2noW90lcMwIxrCKZKvWWWFH0guJFNtp55HMMld5moerc/i4XbZwQSv3Cyy0G5FbGEwOIlHKYGqScMkF4MUiWdLT5dZCcEkWhK5hl5tjfCR8yD1bnGAyvhXDmmtuBoFtfsiYd8g9onVLZyFOt1se2gkgKYaPTTkZ5JvgrNALY0aAOTtfRcdeybgSAba3/TMm1vdX48zrjZyKi1TtDA22/Xza4SqVdFSCIXBKqQXfcB/54yPIX0lFIC9Wx39PRmnroFZYYiIPBuC+gOjGEWm+Jzdj2GvTxOkCvFuUNi5i5qRGPf+g0pF445dp6FvdJXDMCMawimSr1lls+RBBSkkGwVeRzDJXeZqHqgcam2pA9lNFTIRwJxai0GRGcG4oIAwC3k8rzTyYqFU61aEzRfjYliVcAeFlkP+A0/PYjkU4UTIamGvUXLcVR3Px4xNeCWmIzGa/eNs0aUQg==
+
+q4
+it's not an encryption as no key is required. it is simple an encoding method.
+
+q5
+yes
+
+q6
+shorttext.txt: 1480
+longtext.txt: 17360
+yes. larger file has larger byte array
+the length (1480) corresponds to number of 64-bit blocks encrypted
+larger file, which has more text, results in a larger byte array
+
+part2
+
+q1
+very similar, the big SUTD pattern is visible
+
+q2
+ECB encrypt by block. so if the block appear similar, they get encrypted to the same pattern
+
+q3
+different from ECB. CBC = cipher block chaining, encrypting the next block depends on the cipher of the previous block, hence the encrypted pattern change is propagated through each block, and even if the block appear similarly before encryption, different ciphers will be generated for them.
+
+q4
+by encrypting column by column, from top to bottom in each column, the chaining algorithm only starts to take effect when there is an abrupt change in the block, compared to the neighbouring one. this abrupt change is reflected in the encrypted image. in sutd logo, first few columns it's plain white, so whole column looks very similar. for letter S, in individual columns, the change is the same (from white to black), given the deterministic nature of cipher, the 'gradient' that emerges is similar. taking a closer look at letter E, the left half looks identical top down, therefore the encrypted pattern is same.
+similarly for triangle, the gradient change from black to white is uniform across all columns, the only variable is the length at which it occurs, scanning top down, the top projection of the triangle still remains
+
+if the blocks are iterated bottom up, in SUTD logo, there wont be observable pattern as "Established in collaboration with MIT" text look drastically different.
+In triangle case, it will show as a flat base scanning bottom up.
+
+part3
+
+q1
+// small: 5044643FCA56CF59FD8143DFFA5E13C9, length = 16
+// large: A07D79C37A85635C67C8D13467CFA44D, length = 16
+same
+
+q2
+same length. signing the digests of the same length will gave the same signed length, due to same padding applied
